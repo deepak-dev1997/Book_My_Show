@@ -17,6 +17,7 @@ public class UserController {
 
     @PostMapping("/add")
     public String addUser(@RequestBody UserEntryDto userEntryDto){
-
+    userService.addUser(userEntryDto);
+    return "user Added Successfully";
     }
 }

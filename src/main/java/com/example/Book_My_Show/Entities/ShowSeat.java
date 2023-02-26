@@ -30,5 +30,9 @@ public class ShowSeat {
 
     private Date bookedAt;
 
+    @ManyToOne
+    @JoinColumn
+    private Show show;
+
 
 }

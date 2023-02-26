@@ -23,6 +23,9 @@ public class TheaterSeat {
     @ManyToOne
     @JoinColumn
     private Theater theater;
+
+    //this is child wrt show
+
     
 
 

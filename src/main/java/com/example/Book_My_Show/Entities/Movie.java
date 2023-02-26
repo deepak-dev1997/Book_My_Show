@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "movies")
 @Data
@@ -28,6 +31,11 @@ public class Movie {
 
     @Enumerated(value = EnumType.STRING)
     private Language language;
+
+
+    //this is parent of show
+    @OneToMany(mappedBy = "movie" , cascade = CascadeType.ALL)
+    private List<Show> showList=new ArrayList<>();
 
 
 

@@ -25,7 +25,9 @@ public class Theater {
     @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
     private List<TheaterSeat> theaterSeatList=new ArrayList<>();
 
-
+    //this is the parend wrt
+    @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
+    private List<Show> showList=new ArrayList<>();
 
 
 
