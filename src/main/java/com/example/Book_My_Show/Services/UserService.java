@@ -1,5 +1,6 @@
 package com.example.Book_My_Show.Services;
 
+import com.example.Book_My_Show.Convertors.UserConvertor;
 import com.example.Book_My_Show.Entities.User;
 import com.example.Book_My_Show.EntryDtos.UserEntryDto;
 import com.example.Book_My_Show.Repository.UserRepository;
@@ -12,7 +13,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public void addUser(UserEntryDto userEntryDto){
+    public String addUser(UserEntryDto userEntryDto) throws Exception{
         //Here we need to convert and save
         /*
         in old method is you create an object and set attributes
@@ -23,10 +24,11 @@ public class UserService {
         it always require all Args constructor
 
          */
-        User user=User.builder().age(userEntryDto.getAge()).name(userEntryDto.getName()).email(userEntryDto.getEmail()).address(userEntryDto.getAddress()).mobileNo(userEntryDto.getMobileNo()).build();
-
-        //This is to set all of the attributes in one go
-
+        User user= UserConvertor.convertDtoToEntity(userEntryDto);
         userRepository.save(user);
+        return "User Added successfully";
+
     }
+
+
 }
