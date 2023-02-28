@@ -3,6 +3,7 @@ package com.example.Book_My_Show.Entities;
 import com.example.Book_My_Show.Enums.SeatType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "showseats")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShowSeat {

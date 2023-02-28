@@ -23,35 +23,55 @@ public class TheaterService {
 
     public String addTheater(TheaterEntryDto theaterEntryDto) throws Exception{
 
+        if(theaterEntryDto.getName()==null||theaterEntryDto.getLocation()==null){
+            throw new Exception("Name and location should valid");
+        }
+
+
         //first we need to create seat
         //then I need to add the same int theater attribute
         //before that i need to create a theater object from theater entry DTo
-        Theater theater= TheaterConvertors.convertEntryToEntity(theaterEntryDto);
-
-        List<TheaterSeat> theaterSeatList= createTheaterSeats(theaterEntryDto,theater);
 
 
-        return "Theater and seats added successfully";
+        Theater theaterEntity = TheaterConvertors.convertEntryToEntity(theaterEntryDto);
+        List<TheaterSeat> theaterSeatEntityList = createTheaterSeats(theaterEntryDto,theaterEntity);
+
+        theaterEntity.setTheaterSeatList(theaterSeatEntityList);
+        theatreRepository.save(theaterEntity);
+
+        return "Theater Added successfully";
     }
 
     private List<TheaterSeat> createTheaterSeats(TheaterEntryDto theaterEntryDto, Theater theat){
-        int noClassicSeats=theaterEntryDto.getClassicSeatCount();
-        int noPremiumSeats=theaterEntryDto.getPremiumSeatCount();
+        int noClassicSeats = theaterEntryDto.getClassicSeatCount();
+        int noPremiumSeats = theaterEntryDto.getPremiumSeatCount();
 
-        List<TheaterSeat> theaterSeatList=new ArrayList<>();
-        for(int a=1;a<=noClassicSeats;a++){
-            TheaterSeat theaterSeat= TheaterSeat.builder()
-                    .seatType(SeatType.CLASSIC).seatNo(a+"C").theater(theat).build();
+        List<TheaterSeat> theaterSeatEntityList = new ArrayList<>();
 
-            theaterSeatList.add(theaterSeat);
+        //Created the classic Seats
+        for(int count = 1;count<=noClassicSeats;count++){
 
+            //We need to make a new TheaterSeatEntity
+            TheaterSeat theaterSeatEntity = TheaterSeat.builder()
+                    .seatType(SeatType.CLASSIC).seatNo(count+"C")
+                    .theater(theat).build();
+
+            theaterSeatEntityList.add(theaterSeatEntity);
         }
-        for(int a=1;a<=noPremiumSeats;a++){
-            TheaterSeat theaterSeat=TheaterSeat.builder().seatType(SeatType.PREMIUM).seatNo(a+"P").theater(theat).build();
-            theaterSeatList.add(theaterSeat);
+
+
+        //Create the premium Seats
+        for(int count=1;count<=noPremiumSeats;count++){
+
+            TheaterSeat theaterSeatEntity = TheaterSeat.builder().
+                    seatType(SeatType.PREMIUM).seatNo(count+"P").theater(theat).build();
+
+            theaterSeatEntityList.add(theaterSeatEntity);
         }
-        theaterSeatReposittory.saveAll(theaterSeatList);
-        return theaterSeatList;
+
+        //Not saving the child here
+        return theaterSeatEntityList;
+
     }
 
 }
