@@ -1,8 +1,10 @@
 package com.example.Book_My_Show.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,6 +14,8 @@ import java.util.UUID;
 @Table(name = "tickets")
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Ticket {
 
     @Id
@@ -29,6 +33,8 @@ public class Ticket {
     private String tickedId= UUID.randomUUID().toString();
 
     private String theatreName;
+
+    private String bookedSeats;
 
     @ManyToOne
     @JoinColumn

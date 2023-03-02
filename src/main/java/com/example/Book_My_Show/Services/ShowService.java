@@ -40,19 +40,18 @@ public class ShowService {
         //creating show list to add it in theater entity
         List<ShowSeat> showSeatList=createShowSeatEntity(showEntryDto,show);
 
-        //we will now update the parent attribute
-        List<Show> showList=movie.getShowList();
-        showList.add(show);
-        movie.setShowList(showList);
+       show.setShowSeatList(showSeatList);
 
-        movieRepository.save(movie);
-        List<Show> showList1=theater.getShowList();
-        showList1.add(show);
-        theater.setShowList(showList1);
+       show=showRepository.save(show);
 
-        theatreRepository.save(theater);
+       movie.getShowList().add(show);
 
-        return "Show Added successfully";
+       theater.getShowList().add(show);
+
+       movieRepository.save(movie);
+       theatreRepository.save(theater);
+
+       return "The show has been added successfully";
 
 
 
