@@ -23,7 +23,7 @@ public class UserController {
          return new ResponseEntity<>(userService.addUser(userEntryDto), HttpStatus.CREATED);
      }
      catch (Exception e){
-         return new ResponseEntity<>("User cannot be added",HttpStatus.BAD_REQUEST);
+         return new ResponseEntity<>(e.getMessage()+"User cannot be added",HttpStatus.BAD_REQUEST);
      }
     }
 

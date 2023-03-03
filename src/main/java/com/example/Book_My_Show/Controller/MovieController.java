@@ -24,7 +24,7 @@ public class MovieController {
         try{
         return new ResponseEntity<>(movieService.addMovie(movieEntryDto),HttpStatus.CREATED);
         }catch (Exception e){
-        return new ResponseEntity<>("Movie cannot be added", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(e.getMessage()+"Movie cannot be added", HttpStatus.BAD_REQUEST);
         }
     }
 
